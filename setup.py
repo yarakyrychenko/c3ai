@@ -8,6 +8,9 @@ setup(
         "numpy",           
         "pandas",
         "openai==1.55.3",
+        "transformers", 
+        "accelerate",
+        "datasets"
     ],
     author="Yara Kyrychenko",
     description="C3AI: A package for Crafting and Evaluating Constitutions for Constitusional AI",
@@ -21,5 +24,10 @@ setup(
     ],
     python_requires=">=3.10",
     include_package_data=True,  
-    package_data={"c3ai": ["data/three_shots.jsonl", "data/principles.csv"]}, 
+    package_data={"c3ai": [
+        "data/three_shots.jsonl", 
+        "data/principles.csv", 
+        "data/Rscripts/EGA.R",
+        "data/Rscripts/bootEGA.R",
+        ]}, 
 )
