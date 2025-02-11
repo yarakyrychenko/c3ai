@@ -1,3 +1,9 @@
+# R
+.Rapp.history
+.Rhistory
+.RData
+.Rproj.user/
+
 # OS
 *.DS_Store
 

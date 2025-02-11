@@ -45,9 +45,9 @@ class Preferences:
         else:
             output_ds = f'results/{params["model_name"].split("/")[-1]}_{params["principle_name"]}_{params["data_name"]}.jsonl'
 
-        self.formatter = Formatter(principles_csv=self.principles, few_shots=params["few_shots"], selected=params["statement_ids"]) if self.formatter is None else self.formatter
+        self.preferences.to_json(output_ds, orient='records', lines=True)
+        print(f'Results saved to {output_ds}')
 
-        preferences = self.formatter.save_formatted_response_dataset(self.preferences,output_ds_name=output_ds)
         
     def make_df(self):
         pref_df = self.preferences.to_pandas().drop(['chosen', 'rejected','convo'], axis=1) 
@@ -113,6 +113,9 @@ class Preferences:
         preferences = preferences.add_column('prob_A', list(prob_df['prob_A']))
         preferences = preferences.add_column('prob_B', list(prob_df['prob_B']))
         preferences = preferences.add_column('uncertainty', list(prob_df['uncertainty']))
+
+        preferences = preferences.map(self.formatter.determine_same_choice)
+        preferences = preferences.map(self.formatter.determine_same_choice_probs)
 
         self.preferences = preferences
         

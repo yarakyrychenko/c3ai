@@ -160,13 +160,6 @@ Only answer A or B. The answer is:'''
                 comparisons['rejected'].append(batch['rejected'][i])
 
         return comparisons
-    
-    def save_formatted_response_dataset(self,preferences,output_ds_name):
-        preferences = preferences.map(self.determine_same_choice)
-        preferences = preferences.map(self.determine_same_choice_probs)
-    
-        preferences.to_json(output_ds_name, orient='records', lines=True)
-        print(f'Results saved to {output_ds_name}')
         
 class Formatter(BaseFormatter):
     def __init__(self, principles_csv, few_shots, selected=None, seed=123):
