@@ -1,5 +1,4 @@
 # C3AI: A package for Crafting and Evaluating Constitutions for Constitusional AI
-! Package under development
 
 Make a new conda environment with:
 
@@ -9,3 +8,5 @@ Make a new conda environment with:
 
 From the c3ai directory, run: 
 `pip install -e .`
+
+Check out how to use the package in the example notebook in `notebooks/C3AI_Example.ipynb`.

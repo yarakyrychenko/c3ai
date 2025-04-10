@@ -1,5 +1,4 @@
 import pandas as pd
-import time
 import openai
 
 STATEMENT_PROMPT = """You are an assistant tasked with rewriting sentences in an appropriate format to make them statements. 
@@ -41,7 +40,7 @@ def get_response(text, prompt, model):
     reply = response.choices[0].message.content
     return reply
 
-def generate(col, prompt, sleep_secs, model):
+def generate(col, prompt, model):
     """Generates statements or principles from a dataframe of items using the given prompt and OpenAI model."""
     if prompt == 'statement':
         prompt = STATEMENT_PROMPT
@@ -56,6 +55,4 @@ def generate(col, prompt, sleep_secs, model):
         print(col[i])
         print(result)
         results.append(result)
-        if sleep_secs != None:
-            time.sleep(sleep_secs)   
     return results

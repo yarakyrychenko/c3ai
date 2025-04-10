@@ -70,9 +70,9 @@ class Preferences:
         self.formatter = Formatter(principles_csv=self.principles, few_shots=params["few_shots"], selected=params["statement_ids"])
 
         if "openai" in params["model_name"]:
-            self.generator = APIGenerator(params["model_name"], params["access_token"], max_length=params["max_length"])
+            self.generator = APIGenerator(params["model_name"], max_length=params["max_length"])
         else:
-            self.generator = Generator(params["model_name"], params["access_token"], chat=params["chat"], max_length=params["max_length"])
+            self.generator = Generator(params["model_name"], chat=params["chat"], max_length=params["max_length"])
 
         print("### Starting preference generation ###")
         preferences = data.map(

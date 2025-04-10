@@ -8,9 +8,13 @@ setup(
         "numpy",           
         "pandas",
         "openai==1.55.3",
+        "torch",
         "transformers", 
         "accelerate",
-        "datasets"
+        "datasets",
+        "peft",
+        "trl",
+
     ],
     author="Yara Kyrychenko",
     description="C3AI: A package for Crafting and Evaluating Constitutions for Constitusional AI",

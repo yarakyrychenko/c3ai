@@ -1,6 +1,3 @@
-# UNDER DEVELOPMENT
-# This requires R to be installed
-
 import subprocess, os, importlib.resources
 
 def select(Preferences, method='EGA'):

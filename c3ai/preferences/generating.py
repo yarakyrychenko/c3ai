@@ -12,9 +12,8 @@ import numpy as np
 import openai
 
 class BaseGenerator:
-    def __init__(self, model_name, access_token, max_length):
+    def __init__(self, model_name, max_length):
         self.model_name = model_name
-        self.access_token = access_token
         self.max_length = max_length
 
     def calculate_uncertainty(self,probablities):
@@ -23,10 +22,12 @@ class BaseGenerator:
         return float(entropy)
 
 class Generator(BaseGenerator):
-    def __init__(self, model_name, access_token, chat=False, max_length=4096, device=None):
-        super().__init__(model_name,access_token, max_length)
+    def __init__(self, model_name, chat=False, max_length=4096, device=None):
+        super().__init__(model_name, max_length)
 
         self.chat = chat
+
+        access_token = os.getenv('HF_ACCESS_TOKEN')
         
         # Load model and tokenizer
         if self.chat:
@@ -130,9 +131,9 @@ class Generator(BaseGenerator):
         return  {"prob_A": .5, "prob_B": .5, "uncertainty": 1}
 
 class APIGenerator(BaseGenerator):
-    def __init__(self, model_name, access_token, max_length=4096):
-        super().__init__(model_name,access_token, max_length)
-        self.client = openai.OpenAI(api_key=access_token)
+    def __init__(self, model_name, max_length=4096):
+        super().__init__(model_name, max_length)
+        self.client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
         self.A_ids = ["A"]
         self.B_ids = ["B"]
 
