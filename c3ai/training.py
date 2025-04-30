@@ -51,7 +51,7 @@ def ORPO(args, orpo_args):
 
     print('Tokenizer and model loaded.')
 
-    dataset = format_training_dataset(args['data_files'],args['n_examples'])
+    dataset = format_training_dataset(args['data_files'], args['n_examples'], tokenizer)
 
     print('Dataset loaded.')
 
@@ -103,7 +103,7 @@ def ORPO(args, orpo_args):
     gc.collect()
     torch.cuda.empty_cache()
 
-def format_chat_template(row, tokenizer=tokenizer):
+def format_chat_template(row, tokenizer):
     row["prompt"] = row["chosen"][0]["content"]
     row["chosen"] = tokenizer.apply_chat_template(row["chosen"], tokenize=False)
     row["rejected"] = tokenizer.apply_chat_template(row["rejected"], tokenize=False)
@@ -127,7 +127,7 @@ def format_responses(row):
     return row
 
 
-def format_training_dataset(data_files,n_examples):
+def format_training_dataset(data_files,n_examples, tokenizer):
     random = np.random.default_rng(123)
 
     dataset = load_dataset('json', data_files=data_files)['train'].shuffle(seed=123)
@@ -135,10 +135,8 @@ def format_training_dataset(data_files,n_examples):
     if n_examples > 0:
         dataset = dataset.select(range(n_examples))
 
-    dataset = dataset.map(
-                            format_chat_template,
-                                num_proc= os.cpu_count(),
-                                )
+    dataset = dataset.map(format_chat_template,num_proc= os.cpu_count(), fn_kwargs={'tokenizer': tokenizer})
+
     if 'same_choice_probs' in dataset.column_names:
         print('Swapping responses...')
         dataset = dataset.map(

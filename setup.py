@@ -31,6 +31,7 @@ setup(
     package_data={"c3ai": [
         "data/three_shots.jsonl", 
         "data/principles.csv", 
+        "data/harmless_one_turn_train_100_sample.jsonl",
         "data/Rscripts/EGA.R",
         "data/Rscripts/bootEGA.R",
         ]}, 
