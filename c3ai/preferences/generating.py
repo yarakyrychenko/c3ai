@@ -9,7 +9,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 from torch.utils.data import DataLoader, TensorDataset
 from tqdm import tqdm
 import numpy as np
-import openai
+import openai, os
 
 class BaseGenerator:
     def __init__(self, model_name, max_length):

@@ -103,7 +103,7 @@ def ORPO(args, orpo_args):
     gc.collect()
     torch.cuda.empty_cache()
 
-def format_chat_template(row):
+def format_chat_template(row, tokenizer=tokenizer):
     row["prompt"] = row["chosen"][0]["content"]
     row["chosen"] = tokenizer.apply_chat_template(row["chosen"], tokenize=False)
     row["rejected"] = tokenizer.apply_chat_template(row["rejected"], tokenize=False)
