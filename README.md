@@ -25,7 +25,7 @@ Check out how to use the package in the example notebook: `examples/C3AI_Example
 
 ### Minimal example for preference generation
 
-```
+```python
 import pandas as pd, os, importlib.resources, datasets
 import c3ai
 
